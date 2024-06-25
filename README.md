@@ -1,2 +1,2 @@
-# LoveTwinSymphony
-少女孪想曲
+# 少女孪想曲 Love Twin Symphony
+
