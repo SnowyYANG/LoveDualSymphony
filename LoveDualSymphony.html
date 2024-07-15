@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Story</title>
+<style>
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="menu">
+  <h1>少女孪想曲</h1>
+  <div><a href="#" onclick="event.preventDefault(); openChapter(1);">妖心爱意幻想</a> | <a href="#" onclick="event.preventDefault(); openChapter(2);">渣女恋色浮想</a></div>
+  <div><a href="#" onclick="event.preventDefault(); openChapter(3);">梦回100年前</a></div>
+  <div><a href="#" onclick="event.preventDefault(); openChapter(4);">作者后记</a></div>
+</div>
+
+<div id="chapter" class="hidden">
+  <h1 id="chapterTitle"></h1>
+  <p id="chapterText"></p>
+  <button onclick="showMenu()">返回主菜单</button>
+</div>
+
+<script>
+const chapters = [
+  { id: 1, title: '妖心爱意幻想', text: '这是章节一的内容。点击<span id="keyword" style="color:blue;cursor:pointer;">关键字</span>查看更多。', unlocked: true },
+  { id: 2, title: '渣女恋色浮想', text: '这是章节二的内容。', unlocked: false }
+];
+
+function showMenu() {
+  document.getElementById('menu').style.display = 'block';
+  document.getElementById('chapter').style.display = 'none';
+}
+
+function startChapter(chapterId) {
+  const chapter = chapters.find(c => c.id === chapterId);
+  document.getElementById('chapterTitle').textContent = chapter.title;
+  document.getElementById('chapterText').innerHTML = chapter.text;
+  document.getElementById('menu').style.display = 'none';
+  document.getElementById('chapter').style.display = 'block';
+
+  const keyword = document.getElementById('keyword');
+  if (keyword) {
+    keyword.onclick = function() {
+      changeText(chapterId);
+    };
+  }
+}
+
+function changeText(chapterId) {
+  const chapter = chapters.find(c => c.id === chapterId);
+  if (chapterId === 1) { // 示例：仅为章节一添加特定逻辑
+    chapter.text = '文本已变化。';
+    document.getElementById('chapterText').textContent = chapter.text;
+  }
+}
+
+// 示例：解锁章节二
+// 实际应用中，解锁逻辑可能更复杂，需要根据游戏进度或其他条件动态判断
+function unlockChapter(chapterId) {
+  const chapter = chapters.find(c => c.id === chapterId);
+  chapter.unlocked = true;
+  if (chapterId === 2) {
+    document.getElementById('chapter2Button').disabled = false;
+  }
+}
+
+// 假设在游戏的某个点调用此函数以解锁章节二
+unlockChapter(2);
+</script>
+
+</body>
+</html>
