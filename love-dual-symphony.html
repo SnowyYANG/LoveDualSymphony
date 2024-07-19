@@ -246,7 +246,10 @@ function showMenu() {
 function openChapter(chapterId) {
   if (chapterId === 1) localStorage.setItem('c1', true);
   if (chapterId === 2) localStorage.setItem('c2', true);
-  if (chapterId === 3) localStorage.setItem('c3', true);
+  if (chapterId === 3) {
+    if (!(localStorage.getItem('c1') && localStorage.getItem('c2')) && !confirm('强烈建议先体验幻想和浮想。确定要现在开始梦想吗？')) return;
+    localStorage.setItem('c3', true);
+  }
   if (chapterId === 4) {
     if (!(localStorage.getItem('c1') && localStorage.getItem('c2') && localStorage.getItem('c3') && localStorage.getItem('c1be') && localStorage.getItem('c2be'))) {
       alert('还有未体验的章节。');
